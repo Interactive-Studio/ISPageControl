@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="lcL-Wh-imL">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--ISPageControl-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="igd-D2-ko8"/>
+                        <viewControllerLayoutGuide type="bottom" id="lP9-wX-sVz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Dsg-d5-Bji">
+                                <rect key="frame" x="0.0" y="114" width="375" height="240"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="DNs-j9-i7b"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="u0A-US-tU8">
+                                    <size key="itemSize" width="363" height="241"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="4HL-UI-4Vh" customClass="ImageCell" customModule="Example" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="-0.5" width="363" height="241"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="363" height="241"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7bV-Lj-IYD">
+                                                    <rect key="frame" x="0.0" y="0.0" width="363" height="241"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="7bV-Lj-IYD" secondAttribute="bottom" id="4GG-tK-VSp"/>
+                                            <constraint firstItem="7bV-Lj-IYD" firstAttribute="top" secondItem="4HL-UI-4Vh" secondAttribute="top" id="OjK-Cb-IHu"/>
+                                            <constraint firstItem="7bV-Lj-IYD" firstAttribute="leading" secondItem="4HL-UI-4Vh" secondAttribute="leading" id="mBT-to-iWl"/>
+                                            <constraint firstAttribute="trailing" secondItem="7bV-Lj-IYD" secondAttribute="trailing" id="sY2-8c-6iZ"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="staImageView" destination="7bV-Lj-IYD" id="FYa-5h-S1t"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="32g-tb-SH9"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Q8f-HC-Phb"/>
+                                </connections>
+                            </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y1a-iA-XIg" customClass="ISPageControl" customModule="ISPageControl">
+                                <rect key="frame" x="137" y="364" width="100" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="fjZ-QQ-ekS"/>
+                                    <constraint firstAttribute="width" constant="100" id="uYC-ju-AWo"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hideForSinglePage" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="currentPageTintColor">
+                                        <color key="value" red="0.0" green="0.62769819940000005" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="inactiveTintColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="CFC-NF-zg3">
+                                <rect key="frame" x="143" y="509" width="39" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Dsg-d5-Bji" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="DO6-la-2zl"/>
+                            <constraint firstItem="y1a-iA-XIg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eOM-6U-4Bc"/>
+                            <constraint firstItem="y1a-iA-XIg" firstAttribute="top" secondItem="Dsg-d5-Bji" secondAttribute="bottom" constant="10" id="fUn-2u-Zes"/>
+                            <constraint firstItem="Dsg-d5-Bji" firstAttribute="top" secondItem="igd-D2-ko8" secondAttribute="bottom" constant="50" id="lle-Yc-PUZ"/>
+                            <constraint firstAttribute="trailing" secondItem="Dsg-d5-Bji" secondAttribute="trailing" id="nlM-oF-eNK"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="ISPageControl" id="vB4-Bq-NNH"/>
+                    <connections>
+                        <outlet property="collectionView" destination="Dsg-d5-Bji" id="wQe-kf-SHs"/>
+                        <outlet property="pageControl" destination="y1a-iA-XIg" id="sWW-Z0-BM0"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="372" y="32.833583208395808"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="QqS-94-svj">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="lcL-Wh-imL" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="AlW-4m-wcr">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="dgP-sq-PdR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5fe-MP-zix" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-353" y="33"/>
+        </scene>
+    </scenes>
+</document>
