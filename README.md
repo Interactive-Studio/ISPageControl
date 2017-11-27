@@ -9,7 +9,7 @@
 
 **ISPageControl** has a page control similar to that used in the Instagram
 
-<img src="Resource/example1.png" width="300">
+<img src="Resource/example.gif" width="300">
 
 ## Contents
 
