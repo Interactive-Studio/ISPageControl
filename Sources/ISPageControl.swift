@@ -9,11 +9,11 @@
 import UIKit
 
 open class ISPageControl: UIControl {
-    private let limit = 5
-    private var fullScaleIndex = [0, 1, 2]
-    private var dotLayers: [CALayer] = []
-    private var diameter: CGFloat { return radius * 2 }
-    private var centerIndex: Int { return fullScaleIndex[1] }
+    fileprivate let limit = 5
+    fileprivate var fullScaleIndex = [0, 1, 2]
+    fileprivate var dotLayers: [CALayer] = []
+    fileprivate var diameter: CGFloat { return radius * 2 }
+    fileprivate var centerIndex: Int { return fullScaleIndex[1] }
     
     open var currentPage = 0 {
         didSet {
