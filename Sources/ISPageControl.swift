@@ -9,10 +9,22 @@
 import UIKit
 
 open class ISPageControl: UIControl {
+    
+    open var fadeScale: Bool = true {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    open var fadeOpacity: Bool = false {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
     fileprivate let limit = 5
     fileprivate var fullScaleIndex = [0, 1, 2]
     fileprivate var dotLayers: [CALayer] = []
-    fileprivate var diameter: CGFloat { return radius * 2 }
     fileprivate var centerIndex: Int { return fullScaleIndex[1] }
     
     open var currentPage = 0 {
@@ -36,8 +48,32 @@ open class ISPageControl: UIControl {
         }
     }
     
-    @IBInspectable open var radius: CGFloat = 5 {
+    @IBInspectable open var dotRadius: CGFloat = 5 {
         didSet {
+            if dotHeight < 2 * dotRadius {
+                dotHeight = 2 * dotRadius
+            }
+            if dotWidth < 2 * dotRadius {
+                dotWidth = 2 * dotRadius
+            }
+            updateDotLayersLayout()
+        }
+    }
+    
+    @IBInspectable open var dotWidth: CGFloat = 10 {
+        didSet {
+            if dotRadius > dotWidth / 2 {
+                dotRadius = dotWidth / 2
+            }
+            updateDotLayersLayout()
+        }
+    }
+    
+    @IBInspectable open var dotHeight: CGFloat = 10 {
+        didSet {
+            if dotRadius > dotHeight / 2  {
+                dotRadius = dotHeight / 2
+            }
             updateDotLayersLayout()
         }
     }
@@ -55,6 +91,18 @@ open class ISPageControl: UIControl {
     }
     
     @IBInspectable open var middleScaleValue: CGFloat = 0.7 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    @IBInspectable open var minOpacityValue: CGFloat = 0.4 {
+        didSet {
+            setNeedsLayout()
+        }
+    }
+    
+    @IBInspectable open var middleOpacityValue: CGFloat = 0.7 {
         didSet {
             setNeedsLayout()
         }
@@ -107,7 +155,7 @@ open class ISPageControl: UIControl {
     
     override open func sizeThatFits(_ size: CGSize) -> CGSize {
         let minValue = min(7, numberOfPages)
-        return CGSize(width: CGFloat(minValue) * diameter + CGFloat(minValue - 1) * padding, height: diameter)
+        return CGSize(width: CGFloat(minValue) * dotWidth + CGFloat(minValue - 1) * padding, height: dotHeight)
     }
     
     open override func layoutSubviews() {
@@ -143,14 +191,14 @@ private extension ISPageControl {
     
     func updateDotLayersLayout() {
         let floatCount = CGFloat(numberOfPages)
-        let x = (bounds.size.width - diameter * floatCount - padding * (floatCount - 1)) * 0.5
-        let y = (bounds.size.height - diameter) * 0.5
-        var frame = CGRect(x: x, y: y, width: diameter, height: diameter)
+        let x = (bounds.size.width - dotWidth * floatCount - padding * (floatCount - 1)) * 0.5
+        let y = (bounds.size.height - dotHeight) * 0.5
+        var frame = CGRect(x: x, y: y, width: dotWidth, height: dotHeight)
         
         dotLayers.forEach {
-            $0.cornerRadius = radius
+            $0.cornerRadius = dotRadius
             $0.frame = frame
-            frame.origin.x += diameter + padding
+            frame.origin.x += dotWidth + padding
         }
     }
     
@@ -160,7 +208,7 @@ private extension ISPageControl {
         
         dotLayers.enumerated().filter{ $0.offset != centerIndex }.forEach {
             let index = abs($0.offset - centerIndex)
-            let interval = $0.offset > centerIndex ? diameter + padding : -(diameter + padding)
+            let interval = $0.offset > centerIndex ? dotWidth + padding : -(dotWidth + padding)
             $0.element.position = CGPoint(x: centerLayer.position.x + interval * CGFloat(index), y: $0.element.position.y)
         }
     }
@@ -171,20 +219,44 @@ private extension ISPageControl {
                 return
             }
             
-            var transform = CGAffineTransform.identity
-            if !fullScaleIndex.contains($0.offset) {
-                var scaleValue: CGFloat = 0
-                if abs($0.offset - first) == 1 || abs($0.offset - last) == 1 {
-                    scaleValue = min(middleScaleValue, 1)
-                } else if abs($0.offset - first) == 2 || abs($0.offset - last) == 2 {
-                    scaleValue = min(minScaleValue, 1)
-                } else {
-                    scaleValue = 0
+            if fadeScale {
+                
+                var transform = CGAffineTransform.identity
+                if !fullScaleIndex.contains($0.offset) {
+                    var scaleValue: CGFloat = 0
+                    if abs($0.offset - first) == 1 || abs($0.offset - last) == 1 {
+                        scaleValue = min(middleScaleValue, 1)
+                    } else if abs($0.offset - first) == 2 || abs($0.offset - last) == 2 {
+                        scaleValue = min(minScaleValue, 1)
+                    } else {
+                        scaleValue = 0
+                    }
+                    transform = transform.scaledBy(x: scaleValue, y: scaleValue)
                 }
-                transform = transform.scaledBy(x: scaleValue, y: scaleValue)
+                
+                $0.element.setAffineTransform(transform)
+            }
+                
+            if fadeOpacity {
+                
+                var opacity: CGFloat = 1
+                if !fullScaleIndex.contains($0.offset) {
+                    var scaleValue: CGFloat = 0
+                    if abs($0.offset - first) == 1 || abs($0.offset - last) == 1 {
+                        scaleValue = min(middleOpacityValue, 1)
+                    } else if abs($0.offset - first) == 2 || abs($0.offset - last) == 2 {
+                        scaleValue = min(minOpacityValue, 1)
+                    } else {
+                        scaleValue = 0
+                    }
+                    opacity = scaleValue
+                }
+                
+                $0.element.opacity = Float(opacity)
+                
             }
             
-            $0.element.setAffineTransform(transform)
+            
         }
     }
     
