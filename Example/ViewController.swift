@@ -32,13 +32,14 @@ class ViewController: UIViewController {
         view.addSubview(pageControl1)
         
         let frame2 = CGRect(x: 0, y: 550, width: UIScreen.main.bounds.width, height: 100)
-        pageControl2 = ISPageControl(frame: frame2, numberOfPages: images.count)
-        pageControl2.fadeType = .opacity
+        pageControl2 = ISPageControl(frame: frame2, numberOfPages: images.count)        
         pageControl2.dotRadius = 3
         pageControl2.dotHeight = 6
         pageControl2.dotWidth = 30
         pageControl2.minOpacityValue = 0.2
         pageControl2.middleOpacityValue = 0.6
+        pageControl2.fadeOpacity = true
+        pageControl2.fadeScale = false
         pageControl2.inactiveTintColor = UIColor.white.withAlphaComponent(0.4)
         pageControl2.currentPageTintColor = UIColor.black
         pageControl2.borderWidth = 1

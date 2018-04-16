@@ -10,12 +10,13 @@ import UIKit
 
 open class ISPageControl: UIControl {
     
-    public enum FadeType {
-        case scale
-        case opacity
+    open var fadeScale: Bool = true {
+        didSet {
+            setNeedsLayout()
+        }
     }
     
-    open var fadeType: FadeType = .scale {
+    open var fadeOpacity: Bool = false {
         didSet {
             setNeedsLayout()
         }
@@ -218,9 +219,7 @@ private extension ISPageControl {
                 return
             }
             
-            switch self.fadeType {
-                
-            case .scale:
+            if fadeScale {
                 
                 var transform = CGAffineTransform.identity
                 if !fullScaleIndex.contains($0.offset) {
@@ -236,8 +235,9 @@ private extension ISPageControl {
                 }
                 
                 $0.element.setAffineTransform(transform)
+            }
                 
-            case .opacity:
+            if fadeOpacity {
                 
                 var opacity: CGFloat = 1
                 if !fullScaleIndex.contains($0.offset) {
